@@ -3,6 +3,8 @@ using UnityEngine;
 public class CatPosition : MonoBehaviour
 {
     private GameObject[,] aRDetect;
+    [SerializeField]private GameObject[] debugPosition;
+    private GameObject[,] debugMap, debugCatPosition, debugArrow;
     private int x, y;
     private int nowPositionX, nowPositionY;
     [SerializeField] private bool[,] catInPosition;
@@ -18,6 +20,9 @@ public class CatPosition : MonoBehaviour
             Debug.LogError("地圖長寬錯誤！請重新檢查GameManager。");
         }
         aRDetect = new GameObject[x, y];
+        debugMap = new GameObject[x, y];
+        debugCatPosition = new GameObject[x,y];
+        debugArrow = new GameObject[x,y];
         catInPosition = new bool[x, y];
         int randomX = Random.Range(0, x);
         int randomY = Random.Range(0, y);
@@ -31,11 +36,36 @@ public class CatPosition : MonoBehaviour
                 // x x x
                 // o x x
                 aRDetect[i, j] = GameManager.instance.aRDetect[attachCount];
+                debugMap[i, j] = debugPosition[attachCount];
+                debugCatPosition[i, j] = debugMap[i, j].transform.Find("Middle").gameObject;
+                debugArrow[i, j] = debugMap[i, j].transform.Find("Arrow").gameObject;
+                debugCatPosition[i, j].SetActive(false);
+                debugArrow[i, j].SetActive(false);
+                debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
                 attachCount++;
                 //Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name);
+                if (i < randomX)
+                {
+                    //debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 0);
+                }
+                if (i > randomX)
+                {
+                    //debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 180);
+                }
+                if(i == randomX && j > randomY)
+                {
+                    //debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, -90);
+                }
+                if (i == randomX && j < randomY)
+                {
+                    debugArrow[i, j].SetActive(true);
+                    debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
+                }
 
                 if (i == randomX && j == randomY)
                 {
+                    debugCatPosition[i, j].SetActive(true);
+                    debugArrow[i, j].SetActive(false);
                     catInPosition[i, j] = true;
                     nowPositionX = i;
                     nowPositionY = j;
@@ -137,11 +167,15 @@ public class CatPosition : MonoBehaviour
             {
                 if (i == nowPositionX && j == nowPositionY)
                 {
+                    debugCatPosition[i, j].SetActive(true);
                     catInPosition[i, j] = true;
                     Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name + " , " + catInPosition[i, j]);
                 }
                 else
-                catInPosition[i, j] = false;
+                {
+                    debugCatPosition[i, j].SetActive(false);
+                    catInPosition[i, j] = false;
+                }
             }
         }
     }
