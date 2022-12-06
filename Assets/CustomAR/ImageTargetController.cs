@@ -12,6 +12,10 @@ public struct ImageFileSourceData
 public class ImageTargetController : MonoBehaviour
 {
     public string trackImageName;
+    private void Awake()
+    {
+        trackImageName = name;
+    }
 
 }
 
