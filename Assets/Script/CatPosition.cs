@@ -38,6 +38,12 @@ public class CatPosition : MonoBehaviour
         debugArrow = new GameObject[x,y];
         catInPosition = new bool[x, y];
 
+        debugPosition = new GameObject[x * y];
+        for(int i= 0; i < x * y; i++)
+        {
+            debugPosition[i] = GameObject.Find("Canvas/Debug 4*4/Grid Layout Group/Image" + i).gameObject;
+        }
+
         int randomX = UnityEngine.Random.Range(0, x);
         int randomY = UnityEngine.Random.Range(0, y);
         int attachCount = 0;
@@ -104,7 +110,7 @@ public class CatPosition : MonoBehaviour
     }
     private void Update()
     {
-        if (!scaned)
+        /*if (!scaned)
         {
             for (int i = 0; i < x; i++)
             {
@@ -131,7 +137,7 @@ public class CatPosition : MonoBehaviour
                         debugMap[i, j].SetActive(false);
                 }
             }
-        }
+        }*/
 
     }
     public void ReloadScene()
@@ -293,6 +299,6 @@ public class CatPosition : MonoBehaviour
                 }
             }
         }
-        ClearMap();
+        //ClearMap();
     }
 }
