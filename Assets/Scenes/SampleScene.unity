@@ -654,7 +654,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 406549223}
-  - component: {fileID: 406549222}
   - component: {fileID: 406549225}
   - component: {fileID: 406549224}
   m_Layer: 0
@@ -664,37 +663,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &406549222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406549221}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a984e7ebccba61341a8cc0a945efcef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resetButton: {fileID: 1694803759}
-  repositonButton: {fileID: 1479705085}
-  debugPosition:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &406549223
 Transform:
   m_ObjectHideFlags: 0
@@ -1791,7 +1759,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406549222}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CatPosition, Assembly-CSharp
         m_MethodName: ChangeCatPosition
         m_Mode: 1
@@ -2226,7 +2194,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406549222}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CatPosition, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1

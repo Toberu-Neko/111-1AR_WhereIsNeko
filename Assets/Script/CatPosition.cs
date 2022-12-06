@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,20 @@ public class CatPosition : MonoBehaviour
     [Header("按鈕")]
     [SerializeField] GameObject resetButton;
     [SerializeField] GameObject repositonButton;
+    
     [Header("地圖")]
-    [SerializeField]private GameObject[] debugPosition;
+    private GameObject[] debugPosition;
+    private GameObject[] alphaPosition;
+    [SerializeField] private GameObject debugMapPrefab;
+    [SerializeField] private GameObject alphaMiddle;
+    [SerializeField] private GameObject alphaTestGameObj;
 
+    [Header("DebugMode")]
+    [SerializeField] bool debugMode;
+
+    private GameObject debugGameObj;
     private GameObject[,] aRDetect;
-    private GameObject[,] debugMap, debugCatPosition, debugArrow;
+    private GameObject[,] debugMap, debugCatPosition, debugArrow, alphaMap, alphaCatPosition, alphaArrow;
     private int x, y;
     private int nowPositionX, nowPositionY;
     private bool[,] catInPosition;
@@ -22,13 +32,16 @@ public class CatPosition : MonoBehaviour
     {
         x = GameManager.instance.x;
         y = GameManager.instance.y;
+        debugGameObj = GameObject.Find("Canvas/Debug");
+        //alphaTestGameObj = GameObject.Find("Canvas/AlphaTest");
 
-        if(GameManager.instance.aRDetect.Length != x * y)
+
+        if (GameManager.instance.aRDetect.Length != x * y)
         {
             Debug.LogError("地圖長寬錯誤！請重新檢查GameManager。");
         }
-        resetButton.SetActive(false);
-        repositonButton.SetActive(false);
+        //resetButton.SetActive(false);
+        //repositonButton.SetActive(false);
 
         scaned = false;
 
@@ -36,13 +49,23 @@ public class CatPosition : MonoBehaviour
         debugMap = new GameObject[x, y];
         debugCatPosition = new GameObject[x,y];
         debugArrow = new GameObject[x,y];
+        alphaMap = new GameObject[x, y];
+        alphaCatPosition = new GameObject[x, y];
+        alphaArrow = new GameObject[x,y];
+
         catInPosition = new bool[x, y];
 
-        /*debugPosition = new GameObject[x * y];
-        for(int i= 0; i < x * y; i++)
+
+
+        debugPosition = new GameObject[x * y];
+        alphaPosition = new GameObject[x * y];
+        for (int i = 0; i < x * y; i++)
         {
-            debugPosition[i] = GameObject.Find("Canvas/Debug 4*4/Grid Layout Group/Image" + i).gameObject;
-        }*/
+            Instantiate(debugMapPrefab, debugGameObj.transform.Find("Grid Layout Group"));
+            Instantiate(alphaMiddle, alphaTestGameObj.transform.Find("Maps"));
+            debugPosition[i] = debugGameObj.transform.Find("Grid Layout Group").GetChild(i).gameObject;
+            alphaPosition[i] = alphaTestGameObj.transform.Find("Maps").GetChild(i).gameObject;
+        }
 
         int randomX = UnityEngine.Random.Range(0, x);
         int randomY = UnityEngine.Random.Range(0, y);
@@ -53,55 +76,84 @@ public class CatPosition : MonoBehaviour
             {
                 //附加
                 aRDetect[i, j] = GameManager.instance.aRDetect[attachCount];
+
                 debugMap[i, j] = debugPosition[attachCount];
                 debugCatPosition[i, j] = debugMap[i, j].transform.Find("Middle").gameObject;
                 debugArrow[i, j] = debugMap[i, j].transform.Find("Arrow").gameObject;
+
+                alphaMap[i, j] = alphaPosition[attachCount];
+                alphaCatPosition[i, j] = alphaMap[i, j].transform.Find("Middle").gameObject;
+                alphaArrow[i, j] = alphaMap[i, j].transform.Find("Arrow").gameObject;
 
                 //j是橫排，i是直排。i=2,j=0在o位置。
                 // x x x
                 // x x x
                 // o x x
 
+                alphaCatPosition[i, j].SetActive(false);
+                alphaArrow[i, j].SetActive(false);
+
                 debugCatPosition[i, j].SetActive(false);
                 debugArrow[i, j].SetActive(false);
+
                 attachCount++;
-                //Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name);
+
                 if (i < randomX)
                 {
-                    if (i == randomX - 1 && j == randomY) 
+                    if (i == randomX - 1 && j == randomY)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
 
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, -90);
                 }
                 if (i > randomX)
                 {
                     if (i == randomX + 1 && j == randomY)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
                 }
                 if(i == randomX && j > randomY)
                 {
                     if (j == randomY + 1)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 180);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 180);
                 }
                 if (i == randomX && j < randomY)
                 {
                     if (j == randomY - 1)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 0);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
                 if (i == randomX && j == randomY)
                 {
                     debugCatPosition[i, j].SetActive(true);
                     debugArrow[i, j].SetActive(false);
-                    catInPosition[i, j] = true;
+                    alphaCatPosition[i, j].SetActive(false);
+                    alphaArrow[i, j].SetActive(false);
+
                     nowPositionX = i;
                     nowPositionY = j;
+                    catInPosition[i, j] = true;
                 }
                 else
+                {
                     catInPosition[i, j] = false;
+                }
 
                 Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name+ " , " + catInPosition[i, j]);
             }
@@ -109,7 +161,16 @@ public class CatPosition : MonoBehaviour
     }
     private void Update()
     {
-        if (!scaned)
+        if (debugMode && alphaTestGameObj.activeInHierarchy)
+        {
+            alphaTestGameObj.SetActive(false);
+        }
+        if (!debugMode && debugGameObj.activeInHierarchy)
+        {
+            debugGameObj.SetActive(false);
+        }
+
+        if (!scaned && !debugMode)
         {
             for (int i = 0; i < x; i++)
             {
@@ -117,7 +178,7 @@ public class CatPosition : MonoBehaviour
                 {
                     if (aRDetect[i, j].activeInHierarchy && !scaned)
                     {
-                        debugMap[i, j].SetActive(true);
+                        alphaMap[i, j].SetActive(true);
                         scaned = true;
 
                         //跳出視窗
@@ -133,7 +194,7 @@ public class CatPosition : MonoBehaviour
                         //沒成功的話換位置
                     }
                     else
-                        debugMap[i, j].SetActive(false);
+                        alphaMap[i, j].SetActive(false);
                 }
             }
         }
@@ -249,37 +310,59 @@ public class CatPosition : MonoBehaviour
                 // o x x
                 debugCatPosition[i, j].SetActive(false);
                 debugArrow[i, j].SetActive(false);
-                //debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
+
+                alphaCatPosition[i, j].SetActive(false);
+                alphaArrow[i, j].SetActive(false);
                 //Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name);
                 if (i < nowPositionX)
                 {
                     if (i == nowPositionX - 1 && j == nowPositionY)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, -90);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, -90);
                 }
                 if (i > nowPositionX)
                 {
                     if (i == nowPositionX + 1 && j == nowPositionY)
+                    {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 90);
                 }
                 if (i == nowPositionX && j > nowPositionY)
                 {
-                    if (j == nowPositionY + 1) 
-                       debugArrow[i, j].SetActive(true);
+                    if (j == nowPositionY + 1)
+                    {
+                        debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 180);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 180);
                 }
                 if (i == nowPositionX && j < nowPositionY)
                 {
                     if (j == nowPositionY - 1)
+                        {
                         debugArrow[i, j].SetActive(true);
+                        alphaArrow[i, j].SetActive(true);
+                    }
                     debugArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 0);
+                    alphaArrow[i, j].transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
                 if (i == nowPositionX && j == nowPositionY)
                 {
                     debugCatPosition[i, j].SetActive(true);
                     debugArrow[i, j].SetActive(false);
+
+                    alphaCatPosition[i, j].SetActive(true);
+                    alphaArrow[i, j].SetActive(false);
+
                     catInPosition[i, j] = true;
                     nowPositionX = i;
                     nowPositionY = j;
@@ -288,16 +371,20 @@ public class CatPosition : MonoBehaviour
                 if (i == nowPositionX && j == nowPositionY)
                 {
                     debugCatPosition[i, j].SetActive(true);
+                    alphaCatPosition[i, j].SetActive(true);
                     catInPosition[i, j] = true;
                     Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name + " , " + catInPosition[i, j]);
                 }
                 else
                 {
                     debugCatPosition[i, j].SetActive(false);
+                    alphaCatPosition[i, j].SetActive(false);
+
                     catInPosition[i, j] = false;
                 }
             }
         }
-        ClearMap();
+        if(!debugMode)
+            ClearMap();
     }
 }
