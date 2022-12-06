@@ -1,14 +1,21 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CatPosition : MonoBehaviour
 {
-    private GameObject[,] aRDetect;
+    [Header("按鈕")]
+    [SerializeField] GameObject resetButton;
+    [SerializeField] GameObject repositonButton;
+    [Header("地圖")]
     [SerializeField]private GameObject[] debugPosition;
+
+    private GameObject[,] aRDetect;
     private GameObject[,] debugMap, debugCatPosition, debugArrow;
     private int x, y;
     private int nowPositionX, nowPositionY;
     private bool[,] catInPosition;
+    bool scaned;
     
 
     void Start()
@@ -20,6 +27,10 @@ public class CatPosition : MonoBehaviour
         {
             Debug.LogError("地圖長寬錯誤！請重新檢查GameManager。");
         }
+        resetButton.SetActive(false);
+        repositonButton.SetActive(false);
+
+        scaned = false;
 
         aRDetect = new GameObject[x, y];
         debugMap = new GameObject[x, y];
@@ -93,20 +104,50 @@ public class CatPosition : MonoBehaviour
     }
     private void Update()
     {
+        if (!scaned)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (aRDetect[i, j].activeInHierarchy && !scaned)
+                    {
+                        debugMap[i, j].SetActive(true);
+                        scaned = true;
+
+                        //跳出視窗
+                        if (catInPosition[i, j])
+                        {
+                            resetButton.SetActive(true);
+                        }
+                        else if(!catInPosition[i, j])
+                        {
+                            repositonButton.SetActive(true);
+                        }
+                        //成功的話跳重新開始按鈕
+                        //沒成功的話換位置
+                    }
+                    else
+                        debugMap[i, j].SetActive(false);
+                }
+            }
+        }
+
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void ClearMap()
+    {
+        scaned = false;
+        repositonButton.SetActive(false);
+
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                if (aRDetect[i, j].activeInHierarchy)
-                {
-                    debugMap[i, j].SetActive(true);
-
-                    //跳出視窗
-                    //成功的話跳重新開始按鈕
-                    //沒成功的話換位置
-                }
-                else
-                    debugMap[i, j].SetActive(false);
+                debugMap[i, j].SetActive(false);
             }
         }
     }
@@ -252,5 +293,6 @@ public class CatPosition : MonoBehaviour
                 }
             }
         }
+        ClearMap();
     }
 }
