@@ -2,9 +2,15 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CatPosition : MonoBehaviour
 {
+    [Header("掃描確認畫面")]
+    [SerializeField] GameObject confirmPage;
+    [SerializeField] GameObject confirmButton;
+    [SerializeField] TextMeshProUGUI confirmText;
+
     [Header("按鈕")]
     [SerializeField] GameObject resetButton;
     [SerializeField] GameObject repositonButton;
@@ -21,12 +27,14 @@ public class CatPosition : MonoBehaviour
 
     private GameObject debugGameObj;
     private GameObject[,] aRDetect;
+    //Alpha是中間大圖、Debug是九宮格。
     private GameObject[,] debugMap, debugCatPosition, debugArrow, alphaMap, alphaCatPosition, alphaArrow;
     private int x, y;
     private int nowPositionX, nowPositionY;
     private bool[,] catInPosition;
+
     bool scaned;
-    
+    int keep_i, keep_j;
 
     void Start()
     {
@@ -35,13 +43,12 @@ public class CatPosition : MonoBehaviour
         debugGameObj = GameObject.Find("Canvas/Debug");
         //alphaTestGameObj = GameObject.Find("Canvas/AlphaTest");
 
-
         if (GameManager.instance.aRDetect.Length != x * y)
         {
             Debug.LogError("地圖長寬錯誤！請重新檢查GameManager。");
         }
-        //resetButton.SetActive(false);
-        //repositonButton.SetActive(false);
+        resetButton.SetActive(false);
+        repositonButton.SetActive(false);
 
         scaned = false;
 
@@ -84,6 +91,7 @@ public class CatPosition : MonoBehaviour
                 alphaMap[i, j] = alphaPosition[attachCount];
                 alphaCatPosition[i, j] = alphaMap[i, j].transform.Find("Middle").gameObject;
                 alphaArrow[i, j] = alphaMap[i, j].transform.Find("Arrow").gameObject;
+                alphaMap[i, j].SetActive(false);
 
                 //j是橫排，i是直排。i=2,j=0在o位置。
                 // x x x
@@ -170,56 +178,76 @@ public class CatPosition : MonoBehaviour
             debugGameObj.SetActive(false);
         }
 
-        if (!scaned && !debugMode)
+        if (!debugMode && !scaned)
         {
+            int scanCount = 0;
+            
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
-                    if (aRDetect[i, j].activeInHierarchy && !scaned)
+                    if (aRDetect[i, j].activeInHierarchy)
                     {
-                        alphaMap[i, j].SetActive(true);
-                        scaned = true;
-
-                        //跳出視窗
-                        if (catInPosition[i, j])
-                        {
-                            resetButton.SetActive(true);
-                        }
-                        else if(!catInPosition[i, j])
-                        {
-                            repositonButton.SetActive(true);
-                        }
-                        //成功的話跳重新開始按鈕
-                        //沒成功的話換位置
+                        scanCount++;
+                        keep_i = i;
+                        keep_j = j;
                     }
-                    else
-                        alphaMap[i, j].SetActive(false);
                 }
             }
+            if (scanCount == 1)
+            {
+                //選擇了alphaMap[i, j]地圖，是否確定？
+                confirmText.text = "Chose " + aRDetect[keep_i,keep_j].name + ".";
+                confirmButton.SetActive(true);
+                confirmPage.SetActive(true);
+            }
+            else if (scanCount != 0)
+            {
+                //掃描了超過一個地圖，請重新掃描
+                confirmText.text = "Chose more than one map.";
+                confirmButton.SetActive(false);
+                confirmPage.SetActive(true);
+            }
+            else if (scanCount == 0)
+            {
+                confirmText.text = "";
+                confirmPage.SetActive(false);
+                confirmPage.SetActive(false);
+            }
         }
-
     }
-    public void ReloadScene()
+    public void ConfirmChoice()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //成功的話跳重新開始按鈕
+        //沒成功的話換位置
+        scaned = true;
+
+        alphaMap[keep_i, keep_j].SetActive(true);
+        if (catInPosition[keep_i, keep_j])
+        {
+            resetButton.SetActive(true);
+        }
+        else if (!catInPosition[keep_i, keep_j])
+        {
+            repositonButton.SetActive(true);
+        }
     }
     public void ClearMap()
     {
         scaned = false;
         repositonButton.SetActive(false);
 
-        for (int i = 0; i < x; i++)
+        alphaMap[keep_i, keep_j].SetActive(false);
+     /*   for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                debugMap[i, j].SetActive(false);
+                alphaMap[i, j].SetActive(false);
             }
-        }
+        }*/
     }
     public void ChangeCatPosition()
     {
-        Debug.Log("貓咪換位置！");
         bool xCanPlus = true;
         bool xCanMinuse = true;
         bool yCanPlus = true;
@@ -373,7 +401,7 @@ public class CatPosition : MonoBehaviour
                     debugCatPosition[i, j].SetActive(true);
                     alphaCatPosition[i, j].SetActive(true);
                     catInPosition[i, j] = true;
-                    Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name + " , " + catInPosition[i, j]);
+                    //Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name + " , " + catInPosition[i, j]);
                 }
                 else
                 {
@@ -386,5 +414,9 @@ public class CatPosition : MonoBehaviour
         }
         if(!debugMode)
             ClearMap();
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
