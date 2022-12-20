@@ -163,7 +163,7 @@ public class CatPosition : MonoBehaviour
                     catInPosition[i, j] = false;
                 }
 
-                Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name+ " , " + catInPosition[i, j]);
+                //Debug.Log(i + " , " + j + " , " + aRDetect[i, j].name+ " , " + catInPosition[i, j]);
             }
         }
     }
@@ -197,14 +197,14 @@ public class CatPosition : MonoBehaviour
             if (scanCount == 1)
             {
                 //選擇了alphaMap[i, j]地圖，是否確定？
-                confirmText.text = "Chose " + aRDetect[keep_i,keep_j].name + ".";
+                confirmText.text = "選擇了 " + aRDetect[keep_i,keep_j].name + " 。";
                 confirmButton.SetActive(true);
                 confirmPage.SetActive(true);
             }
             else if (scanCount != 0)
             {
                 //掃描了超過一個地圖，請重新掃描
-                confirmText.text = "Chose more than one map.";
+                confirmText.text = "掃描多於一張地圖。";
                 confirmButton.SetActive(false);
                 confirmPage.SetActive(true);
             }
