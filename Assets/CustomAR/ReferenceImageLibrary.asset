@@ -21,159 +21,159 @@ MonoBehaviour:
       m_GuidLow: 5599154447896401588
       m_GuidHigh: 2788005977950670213
     m_SerializedTextureGuid:
-      m_GuidLow: 13521033717697138673
-      m_GuidHigh: 9765048633094227064
+      m_GuidLow: 17016005998898313677
+      m_GuidHigh: 1115280568578925675
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map1
+    m_Name: BlackDiningroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4772795737361911655
       m_GuidHigh: 6708278321563219390
     m_SerializedTextureGuid:
-      m_GuidLow: 18439081561033782773
-      m_GuidHigh: 12024960437937645163
+      m_GuidLow: 6189215200012462988
+      m_GuidHigh: 12684292826726336426
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map2
+    m_Name: BlueCouch
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5115524379837257266
       m_GuidHigh: 2678582411665997184
     m_SerializedTextureGuid:
-      m_GuidLow: 334463326313848139
-      m_GuidHigh: 13217777514069410762
+      m_GuidLow: 14034421825850462005
+      m_GuidHigh: 16407564634694494890
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map3
+    m_Name: BlueLivingroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5613437257567721012
       m_GuidHigh: 303885196566779035
     m_SerializedTextureGuid:
-      m_GuidLow: 17650897368540394192
-      m_GuidHigh: 15254532949773434136
+      m_GuidLow: 1307416385912472673
+      m_GuidHigh: 16983454306794296154
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map4
+    m_Name: WhiteKitchen
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5167248995357755300
       m_GuidHigh: 8310943789811610762
     m_SerializedTextureGuid:
-      m_GuidLow: 6833282191853607021
-      m_GuidHigh: 16858030947756756249
+      m_GuidLow: 3766367361445556923
+      m_GuidHigh: 890570742944164776
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map5
+    m_Name: OrangBedroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4965762660175684406
       m_GuidHigh: 2925141971050794393
     m_SerializedTextureGuid:
-      m_GuidLow: 15295574908469336697
-      m_GuidHigh: 3900076489275934889
+      m_GuidLow: 2698784617846086580
+      m_GuidHigh: 17424132760923067258
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map6
+    m_Name: WhiteBookroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4686485950626224410
       m_GuidHigh: 5613871205300008849
     m_SerializedTextureGuid:
-      m_GuidLow: 3252805744255982488
-      m_GuidHigh: 12994493433994320523
+      m_GuidLow: 1028071092171901992
+      m_GuidHigh: 3305028898510351691
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map7
+    m_Name: BlackLivingroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5559869223493080931
       m_GuidHigh: 11269623003844349073
     m_SerializedTextureGuid:
-      m_GuidLow: 717360137348350861
-      m_GuidHigh: 5339304042318298939
+      m_GuidLow: 16570126081971807184
+      m_GuidHigh: 5766579346246569754
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map8
+    m_Name: OrangeAttic
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4748969267093589456
       m_GuidHigh: 1512880853885020829
     m_SerializedTextureGuid:
-      m_GuidLow: 8566987290184982643
-      m_GuidHigh: 12560405663557186587
+      m_GuidLow: 17263531458055920213
+      m_GuidHigh: 4117189101400469449
     m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map9
+    m_Name: Door
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5056188600167131505
       m_GuidHigh: 16425324949424053926
     m_SerializedTextureGuid:
-      m_GuidLow: 10057748753893789569
-      m_GuidHigh: 7703988328415616600
-    m_Size: {x: 0.2, y: 0.19656862}
+      m_GuidLow: 3941986869657395329
+      m_GuidHigh: 7711387138548738073
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map10
+    m_Name: BlueLivingroom2
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4801046250046622894
       m_GuidHigh: 18039429022683582127
     m_SerializedTextureGuid:
-      m_GuidLow: 8004094967053812689
-      m_GuidHigh: 9109017029628896795
-    m_Size: {x: 0.2, y: 0.19731344}
+      m_GuidLow: 12399796404380059298
+      m_GuidHigh: 3667182301264244505
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map11
+    m_Name: WhiteLivingroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5340613189370242194
       m_GuidHigh: 2549946750409977006
     m_SerializedTextureGuid:
-      m_GuidLow: 8630213630101543646
-      m_GuidHigh: 8849554964753986827
-    m_Size: {x: 0.2, y: 0.18219039}
+      m_GuidLow: 3500663890146001180
+      m_GuidHigh: 13827964504603154473
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map12
+    m_Name: OrangeChair
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5662134841760585876
       m_GuidHigh: 15004402252599180673
     m_SerializedTextureGuid:
-      m_GuidLow: 17033865423385241865
-      m_GuidHigh: 5493744672248509640
-    m_Size: {x: 0.2, y: 0.18411765}
+      m_GuidLow: 6477564543387149537
+      m_GuidHigh: 16633143546959193290
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map13
+    m_Name: PinkBedroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5635571759825674157
       m_GuidHigh: 11395848114013526676
     m_SerializedTextureGuid:
-      m_GuidLow: 11179252728933424948
-      m_GuidHigh: 4106582383285545674
-    m_Size: {x: 0.2, y: 0.1959854}
+      m_GuidLow: 12368202832609587525
+      m_GuidHigh: 8217703376109855256
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map14
+    m_Name: Sink
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5452388548109837192
       m_GuidHigh: 4538666626622166699
     m_SerializedTextureGuid:
-      m_GuidLow: 5545248826746283785
-      m_GuidHigh: 12897399399696525563
-    m_Size: {x: 0.2, y: 0.190106}
+      m_GuidLow: 15908016145738984868
+      m_GuidHigh: 13372526562933387465
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map15
+    m_Name: WhiteBedroom
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5401277303668773726
       m_GuidHigh: 176066843911536547
     m_SerializedTextureGuid:
-      m_GuidLow: 6477363175114299372
-      m_GuidHigh: 11190783564570312090
-    m_Size: {x: 0.2, y: 0.19763114}
+      m_GuidLow: 11980949342218850178
+      m_GuidHigh: 16973713069864918937
+    m_Size: {x: 0.2, y: 0.2}
     m_SpecifySize: 1
-    m_Name: Map16
+    m_Name: YellowKitchen
     m_Texture: {fileID: 0}
