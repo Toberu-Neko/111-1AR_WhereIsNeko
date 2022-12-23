@@ -419,4 +419,8 @@ public class CatPosition : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void ToScene0()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
